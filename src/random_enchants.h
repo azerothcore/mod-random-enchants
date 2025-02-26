@@ -23,13 +23,19 @@ void rollPossibleEnchant(Player* player, Item* item);
 class RandomEnchantsPlayer : public PlayerScript
 {
 public:
-    RandomEnchantsPlayer() : PlayerScript("RandomEnchantsPlayer") { }
+    RandomEnchantsPlayer() : PlayerScript("RandomEnchantsPlayer", {
+        PLAYERHOOK_ON_LOGIN,
+        PLAYERHOOK_ON_LOOT_ITEM,
+        PLAYERHOOK_ON_CREATE_ITEM,
+        PLAYERHOOK_ON_QUEST_REWARD_ITEM,
+        PLAYERHOOK_ON_GROUP_ROLL_REWARD_ITEM
+    }) { }
 
-    void OnLogin(Player* player) override;
-    void OnLootItem(Player* player, Item* item, uint32 /*count*/, ObjectGuid /*lootguid*/) override;
-    void OnCreateItem(Player* player, Item* item, uint32 /*count*/) override;
-    void OnQuestRewardItem(Player* player, Item* item, uint32 /*count*/) override;
-    void OnGroupRollRewardItem(Player* player, Item* item, uint32 /*count*/, RollVote /*voteType*/, Roll* /*roll*/) override;
+    void OnPlayerLogin(Player* player) override;
+    void OnPlayerLootItem(Player* player, Item* item, uint32 /*count*/, ObjectGuid /*lootguid*/) override;
+    void OnPlayerCreateItem(Player* player, Item* item, uint32 /*count*/) override;
+    void OnPlayerQuestRewardItem(Player* player, Item* item, uint32 /*count*/) override;
+    void OnPlayerGroupRollRewardItem(Player* player, Item* item, uint32 /*count*/, RollVote /*voteType*/, Roll* /*roll*/) override;
 };
 
 void AddRandomEnchantsScripts()
