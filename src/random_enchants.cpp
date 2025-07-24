@@ -6,7 +6,7 @@ void rollPossibleEnchant(Player* player, Item* item)
     if (!sConfigMgr->GetOption<bool>("RandomEnchants.Enable", true))
         return;
 
-    if (item->GetState() == ITEM_REMOVED)
+    if (!item || !item->IsInWorld())
         return;
 
     uint32 itemQuality = item->GetTemplate()->Quality;
