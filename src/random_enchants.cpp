@@ -6,7 +6,7 @@ void rollPossibleEnchant(Player* player, Item* item)
     if (!sConfigMgr->GetOption<bool>("RandomEnchants.Enable", true))
         return;
 
-    if (!item)
+    if (item->GetState() == ITEM_REMOVED)
         return;
 
     uint32 itemQuality = item->GetTemplate()->Quality;
@@ -14,7 +14,7 @@ void rollPossibleEnchant(Player* player, Item* item)
 
     /* eliminates enchanting anything that isn't a recognized quality */
     /* eliminates enchanting anything but weapons/armor */
-    if ((itemQuality > 5 || itemQuality < 1) || (itemClass != 2 && itemClass != 4))
+    if ((itemQuality > ITEM_QUALITY_LEGENDARY || itemQuality < ITEM_QUALITY_NORMAL) || (itemClass != ITEM_CLASS_WEAPON && itemClass != ITEM_CLASS_ARMOR))
         return;
 
     int slotRand[3] = { -1, -1, -1 };
@@ -63,10 +63,7 @@ void rollPossibleEnchant(Player* player, Item* item)
 }
 
 uint32 getRandEnchantment(Item* item)
-{
-    if (!item)
-        return 0;
-    
+{    
     uint32 itemClass = item->GetTemplate()->Class;
     uint32 itemQuality = item->GetTemplate()->Quality;
     std::string classQueryString = "";
