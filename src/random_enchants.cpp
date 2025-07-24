@@ -6,6 +6,9 @@ void rollPossibleEnchant(Player* player, Item* item)
     if (!sConfigMgr->GetOption<bool>("RandomEnchants.Enable", true))
         return;
 
+    if (!item)
+        return;
+
     uint32 itemQuality = item->GetTemplate()->Quality;
     uint32 itemClass = item->GetTemplate()->Class;
 
@@ -61,6 +64,9 @@ void rollPossibleEnchant(Player* player, Item* item)
 
 uint32 getRandEnchantment(Item* item)
 {
+    if (!item)
+        return;
+    
     uint32 itemClass = item->GetTemplate()->Class;
     uint32 itemQuality = item->GetTemplate()->Quality;
     std::string classQueryString = "";
