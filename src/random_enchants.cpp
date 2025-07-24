@@ -65,7 +65,7 @@ void rollPossibleEnchant(Player* player, Item* item)
 uint32 getRandEnchantment(Item* item)
 {
     if (!item)
-        return;
+        return 0;
     
     uint32 itemClass = item->GetTemplate()->Class;
     uint32 itemQuality = item->GetTemplate()->Quality;
