@@ -119,7 +119,7 @@ uint32 getRandEnchantment(Item* item)
     else
         tier = 5;
 
-    QueryResult result = WorldDatabase.Query("SELECT `enchantID` FROM `item_enchantment_random_tiers` WHERE `tier`={} AND `exclusiveSubClass`=NULL AND exclusiveSubClass='{}' OR `class`='{}' OR `class`='ANY' ORDER BY RAND() LIMIT 1", tier, item->GetTemplate()->SubClass, classQueryString, classQueryString);
+    QueryResult result = WorldDatabase.Query("SELECT `enchantID` FROM `item_enchantment_random_tiers` WHERE `tier`={} AND (`class`='{}' OR `class`='ANY') AND (`exclusiveSubClass` IS NULL OR `exclusiveSubClass`={}) ORDER BY RAND() LIMIT 1", tier, classQueryString, item->GetTemplate()->SubClass);
 
     if (!result)
         return 0;
